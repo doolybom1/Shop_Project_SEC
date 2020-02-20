@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails{
 
 	private String nick_name;
 	private String tel;
@@ -21,7 +21,6 @@ public class CustomUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		
 		return null;
 	}
 
@@ -61,4 +60,5 @@ public class CustomUserDetails implements UserDetails {
 		return false;
 	}
 
+	
 }

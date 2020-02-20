@@ -12,16 +12,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 /*
  * spring security에서 사용하는
  * 권한 정보가 담기는 테이블
- * 한사람의 username에 대하여 복수의 권한을 부여할수 있다.
+ * 한 사람의 username에 대하여 복수의 권한을 부여할 수 있다.
  * authority 칼럼의 문자열을 참조하여
- * expression을 사용한 세부적인 권한 부여을 수행할수 있다.
+ * expression을 사용한 세부적인 권한 부여를 수행할 수 있다.
  * 
- * ADMIN, USER, MANAGER 등등의 문자열을 저장하고
- * hasRole('ADMIN'), hasRole('USER'), hasRole('MANGER') 형식으로
- * 로그인된 사용자의 권한을 참조할수 있다.
+ *	ADMIN, USER, MANAGER 등등의 문자열을 저장하고
+ *	hasRole('ADMIN'), hasRole('USER'), hasRole('MANAGER') 형식으로
+ *  로그인된 사용자의 권한을 참조할 수 있다. 
  */
 @Getter
 @Setter
@@ -31,17 +32,14 @@ import lombok.ToString;
 @Builder
 
 @Entity
-@Table(name="authorities",schema = "emsDB")
+@Table(name="authorities",schema="emsDB")
 public class Authorities {
 
-	@Id
+	@Id()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq;
 	private String username;
 	private String authority;
 	
+	
 }
-
-
-
-

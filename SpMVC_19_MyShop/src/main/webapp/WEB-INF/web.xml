@@ -5,11 +5,11 @@
 	version="4.0">
 	
 	<!-- 
-	forceEncoding 
-	spring security를 설정했을 경우
-	404 등의 오류메시지의 한글이 깨져서 ?? 모양으로 보일때
+	forceEncoding
+	spring security를 설정하지 않았을 때는 오류가 안남
+	404 등의 오류메시지의 한글이 깨져서 ?? 모양으로 보일 때
 	해당 설정을 수행하면 한글 깨짐을 방지할 수 있다.
-	-->
+	 -->
 	<filter>
 		<filter-name>encKor</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -27,7 +27,7 @@
 		<filter-name>encKor</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -36,7 +36,8 @@
 		/WEB-INF/spring/*-context.xml
 		</param-value>
 	</context-param>
-
+	<!-- 지금부터 filter를 기본으로 사용하는 ContextLoaderListerner와 
+		DelegatingFilterProxy(추가한거) 두개를 같이 쓰겠다. 웹.xml에서 security 사용하기 위해 열어준것.-->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -45,7 +46,6 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
-	
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
@@ -61,7 +61,10 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+			<param-value>
+			/WEB-INF/spring/root/jasypt-context.xml
+			/WEB-INF/spring/appServlet/*-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

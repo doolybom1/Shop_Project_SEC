@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/auth")
 @Controller
 public class AuthController {
-	
+
 	private final AuthService aService;
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
@@ -24,33 +24,32 @@ public class AuthController {
 		return "login";
 	}
 	
-	
 	@RequestMapping(value="/join",method=RequestMethod.GET)
 	public String join() {
 		return "join";
 	}
-	@RequestMapping(value="/join",method=RequestMethod.POST)
-	public String join(Users userVO) {
-		
-		aService.userSave(userVO);
-		return "redirect:/";
-	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value="/login_ok",method=RequestMethod.GET)
 	public CustomUserDetails login_ok() {
 		
-		CustomUserDetails cUserDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+		CustomUserDetails cUserDetails 
+			= (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
 		
 		return cUserDetails;
 	}
-
+	
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public String join(Users userVO) {
+		
+		aService.userSave(userVO);
+		
+		return "redirect:/";
+	}
+	
+//	@ResponseBody
 	@RequestMapping(value="/auth/test",method=RequestMethod.GET)
 	public String test() {
 		return "auth/test";
-	}
-
-	
-	
+	} 
 }

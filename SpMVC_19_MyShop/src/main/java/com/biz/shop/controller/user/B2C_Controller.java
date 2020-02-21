@@ -1,12 +1,7 @@
 package com.biz.shop.controller.user;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +24,7 @@ public class B2C_Controller {
 		long id = Long.valueOf(strId);
 		ProductVO pVO = pService.findById(id);
 		model.addAttribute("pVO", pVO);
-		model.addAttribute("BODY", "UDETAIL");
+		model.addAttribute("BODY", "ULIST");
 		return "admin/main";
 	}
 

@@ -35,10 +35,7 @@ tr,td,th {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.sec-form{
-	width:500px;
-	margin:1rem;
-}
+
 
 </style>
 </head>
@@ -73,11 +70,11 @@ tr,td,th {
 			<c:when test="${BODY == 'DEPT'}">
 				<%@ include file="/WEB-INF/views/dept/dept.jsp" %>
 			</c:when>
-			<c:when test="${BODY == 'UDETAIL'}">
-				<%@ include file="/WEB-INF/views/user/user_product_detail.jsp" %>
+			<c:when test="${BODY == 'ULIST'}">
+				<%@ include file="/WEB-INF/views/user/user_product_list.jsp" %>
 			</c:when>
 			<c:otherwise>
-				<%@ include file="/WEB-INF/views/user/user_product_list.jsp" %>
+				<%@ include file="/WEB-INF/views/user/user_product_detail.jsp" %>
 			</c:otherwise>
 		</c:choose>
 	</section>

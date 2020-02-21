@@ -25,20 +25,18 @@
 </head>
 
 <script>
-/*
+
 $(function(){
 	
 	$(".basket").click(function(){
 		
-		let id = $(this).attr('data-name')
-		
-		alert(id)
-		document.location.href="${rootPath}/user/product/detail?id=" + id
+		let id = $(this).attr("data-id")
+		document.location.href="${rootPath}/user/product/detail/" + id
 		
 	})
 	
 })
-*/
+
 </script>
 
 <body>
@@ -93,7 +91,7 @@ $(function(){
 									</c:when>
 									<c:otherwise>
 
-										<div class="B2C_LIST" >
+										<div class="B2C_LIST" data-id="${B2C.id}">
 											<div>상품이름 : ${B2C.p_name}</div>
 											<div>상품가격 : ${B2C.p_iprice}</div>
 										</div>
@@ -103,7 +101,7 @@ $(function(){
 							</div>
 						</div>
 						<div class="card-footer">
-							<a href="${rootPath}/user/product/detail?id=${B2C.id}" class="btn basket btn-primary">보러만 가기</a>
+							<a href="#" class="btn basket btn-primary">보러만 가기</a>
 						</div>
 					</div>
 				</div>

@@ -22,6 +22,7 @@ public class AdminController {
 	public String main(Model model) {
 		List<ProductVO> pList = pService.selectAll();
 		model.addAttribute("PRO_LIST", pList);
+		
 		return "admin/main";
 	}
 	

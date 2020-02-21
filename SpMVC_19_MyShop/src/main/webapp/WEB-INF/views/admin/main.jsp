@@ -43,7 +43,7 @@ tr,td,th {
 	<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
 		<ul class="navbar-nav">
 			<li class="navbar-item">
-				<a class="nav-link" href="${rootPath}/">Home</a>
+				<a class="nav-link" href="${rootPath}/user/product/list">Home</a>
 			</li>
 			<li class="navbar-item">
 				<a class="nav-link" href="${rootPath}/admin/product/">상품정보</a>
@@ -73,9 +73,11 @@ tr,td,th {
 			<c:when test="${BODY == 'ULIST'}">
 				<%@ include file="/WEB-INF/views/user/user_product_list.jsp" %>
 			</c:when>
-			<c:otherwise>
+			<c:when test="${BODY == 'UDETAIL'}">
 				<%@ include file="/WEB-INF/views/user/user_product_detail.jsp" %>
-			</c:otherwise>
+			</c:when>
+			
+					
 		</c:choose>
 	</section>
 </body>

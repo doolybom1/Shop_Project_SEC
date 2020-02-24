@@ -91,7 +91,7 @@ $(function(){
 									</c:when>
 									<c:otherwise>
 
-										<div class="B2C_LIST" data-id="${B2C.id}">
+										<div class="B2C_LIST">
 											<div>상품이름 : ${B2C.p_name}</div>
 											<div>상품가격 : ${B2C.p_iprice}</div>
 										</div>
@@ -101,7 +101,7 @@ $(function(){
 							</div>
 						</div>
 						<div class="card-footer">
-							<a href="#" class="btn basket btn-primary">보러만 가기</a>
+							<a href="#" class="btn basket btn-primary" data-id="${B2C.id}">보러만 가기</a>
 						</div>
 					</div>
 				</div>

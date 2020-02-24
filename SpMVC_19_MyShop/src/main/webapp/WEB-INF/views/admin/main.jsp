@@ -76,6 +76,10 @@ tr,td,th {
 			<c:when test="${BODY == 'UDETAIL'}">
 				<%@ include file="/WEB-INF/views/user/user_product_detail.jsp" %>
 			</c:when>
+			<c:otherwise>
+				<h3>카트 상품 : ${COUNT_CART}</h3>
+				<h3>배송중 상품 : ${COUNT_DELIV}</h3>
+			</c:otherwise>
 			
 					
 		</c:choose>

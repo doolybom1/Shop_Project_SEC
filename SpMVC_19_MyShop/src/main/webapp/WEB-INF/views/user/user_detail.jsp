@@ -1,103 +1,130 @@
+  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style>
-#img{
-	width:500px;
-	height: 500px;
-	border:none;
+body {
+	height: 100%;
 }
-.data-form{
-	width: 1000px;
-	margin: 200px 500px;
+.detail-li {
+	list-style: none;
+}
+.product-container-box {
 	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
-.p-data{
-	padding: 3rem;
+.img-box {
+	border: 1px solid black;
+	width: 300px;
+	height: 270px;
+	margin: 3rem;
 }
-.u-data{
+.btn-box {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-
-
-.p-txt{
-	display:inline-block;
-	width:300px;
-	font-size: 30px;
-	font-style: Malgun Gothic;
-	font-weight:bold;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
+#btn-cart, #btn-buy{
+	margin: 3px;
+	width: 200px;
 }
-.btn-button{
-	text-align: center;
+.producthtag{
+	font-weight: bold;
 }
-
-.basket,.buy{
-	background-color: #f2f4f7;
-	border-style: none;
-	font-size: 20px;
-	padding: 1rem 3rem; 
+p{
+	white-space: pre-line;
 }
-.buy{
-	background-color: red;
-	color: white;
-}
-.catagory{
-	width: 100%;
-	margin-bottom: 10px;
-}
-.mp{
-	display: flex;
-	margin-bottom: 10px;
-}
-.minus,.plus{
-	padding: 10px 1rem;
-	
-}
-.num{
-	width: 50px;
-	text-align: center;
-}
-
 </style>
-<html>
 
+<script>
+$(function() {
+	$("#btn-cart").click(function() {
+		let p_qty = parseInt($("#p_qty").val())
+		if(p_qty <= 0){
+			alert("수량은 0개 이상이어야 합니다")
+			return false;
+		}
+		
+		$.ajax({
+			url : "${rootPath}/user/product/cart",
+			type : "POST",
+			data : {
+				p_code : "${pVO.p_code}", 
+				p_opirce : "${pVO.p_oprice}",
+				p_qty : p_qty,
+				"${_csrf.parameterName}" : "${_csrf.token}"
+				
+			},
+			success : function(result) {
+				if(result == "LOGIN_FAIL"){
+					alert("로그인을 수행해야 합니다")
+				}else if(result == "OK"){
+					if(confirm("상품을 카트에 담았습니다.\n" + "장바구니로 이동할까요?")){
+						document.location.href = "${rootPath}/user/product/cart_view"					
+					} 
+				}
+			},
+			error: function() {
+				alert("서버 통신 오류")
+			}
+		})
+		// document.location.href = "${rootPath}/user/product/cart?p_code=${pVO.p_code}" 
+		//		+ "&p_oprice=${pVO.p_oprice}"
+		//		+ "&p_qty=" + p_qty
+	})
+})
+
+</script>
 <body>
-<article class="data-form">
-	<div>
-		<div id="img">${pVO.p_detail}</div>
-	</div>
-	<form class="u-data">
-		<div class="p-data">
-			<label class="p-txt">상품이름 : ${pVO.p_name}</label><br>
-			<hr>
-			<label class="p-txt">상품가격 : ${pVO.p_oprice}</label>
-			<hr>
-					
-			<select class="catagory">
-				<option selected="selected">관련된 물품을 선택하세요</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-			</select>	
-			
-			<div class="mp">
-				<button class="minus">-</button>
-				<input type="text" name="num" value="1" class="num"></input>
-				<button class="plus">+</button>
-			</div>
-			
-			<div class="btn-button">
-				<button class="buy">구매하기</button>
-				<button class="basket">장바구니</button>
-			</div>	
-			
+	<div class="product-container-box">
+
+		<div class="img-box">
+			<img>
 		</div>
-	</form>
+
+		<div class="product-item-box">
+			<div class="product-name">
+				<h2 class="producthtag">${pVO.p_name}</h2>
+				<hr />
+			</div>
+			<table>
+				
+				<tbody>
+					<tr>
+						<th>판매가</th>
+						<td><fmt:formatNumber value="${pVO.p_oprice}" type="currency"/>원</td>
+					</tr>
+					<tr>
+						<th>상품코드</th>
+						<td>${pVO.p_code}</td>
+					</tr>
+					<tr>
+						<th>제조사/공급사</th>
+						<td>${pVO.p_dcode}</td>
+					</tr>
+					<tr>
+						<th>구매수량</th>
+						<td><input type="number" id="p_qty" name="p_qty" value="0">
+					</tr>
+				</tbody>
+			</table>
+			<hr/>
+			<div class="btn-box">
+				<button class="btn btn-primary" id="btn-cart">장바구니</button>
+				<button class="btn btn-primary" id="btn-buy">바로구매</button>
+			</div>
+		</div>
+	</div>
 	
-</article>
-</body>
-</html>
+	
+	
+	<div class="container">
+		<hr/>
+		<p>
+		
+		</p>
+	</div>

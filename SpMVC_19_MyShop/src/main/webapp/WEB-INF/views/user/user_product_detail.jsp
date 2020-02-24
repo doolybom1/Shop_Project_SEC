@@ -62,7 +62,7 @@ p{
 					</tr>
 					<tr>
 						<th>제조사/공급사</th>
-						<td>${pVO.p_d_code}</td>
+						<td>${pVO.p_dcode}</td>
 					</tr>
 					<tr>
 						<th>구매수량</th>

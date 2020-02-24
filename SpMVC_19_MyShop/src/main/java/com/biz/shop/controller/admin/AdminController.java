@@ -1,14 +1,11 @@
 package com.biz.shop.controller.admin;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.biz.shop.domain.ProductVO;
-import com.biz.shop.service.ProductService;
+import com.biz.shop.service.CartService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/admin")
 public class AdminController {
 
-	private final ProductService pService;
+	private final CartService cartService;
 	@RequestMapping(value= {"","/"},method = RequestMethod.GET)
 	public String main(Model model) {
-		List<ProductVO> pList = pService.selectAll();
-		model.addAttribute("PRO_LIST", pList);
+		
+		int countCart = cartService.countCart();
+		int countDelivery = cartService.countDelivery();
+		
+		model.addAttribute("COUNT_CART", countCart);
+		model.addAttribute("COUNT_DELIV", countDelivery);
 		
 		return "admin/main";
 	}

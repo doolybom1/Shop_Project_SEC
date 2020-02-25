@@ -54,7 +54,7 @@ $(function() {
 			type : "POST",
 			data : {
 				p_code : "${pVO.p_code}", 
-				p_opirce : "${pVO.p_oprice}",
+				p_oprice : "${pVO.p_oprice}",
 				p_qty : p_qty,
 				"${_csrf.parameterName}" : "${_csrf.token}"
 				

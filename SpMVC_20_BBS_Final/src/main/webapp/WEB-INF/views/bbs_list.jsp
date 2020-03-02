@@ -17,7 +17,7 @@
 		
 		$(".bbs_view").click(function(){
 			let id = $(this).attr("data-id")
-			document.location.href = "${rootPath}/view?b_id=" + id
+			document.location.href = "${rootPath}/detail?b_id=" + id
 		})
 	})
 	
@@ -39,7 +39,9 @@
 						<td>${i.count}</td>
 						<td>${BBS.b_writer}</td>
 						<td>${BBS.b_date_time}</td>
-						<td><a href="${rootPath}/detail?b_id=${BBS.b_id}">${BBS.b_subject}</a></td>
+						<td><a href="${rootPath}/detail?b_id=${BBS.b_id}">
+						${BBS.b_subject}
+						</a></td>
 					</tr>		
 				</c:forEach>
 			</table>

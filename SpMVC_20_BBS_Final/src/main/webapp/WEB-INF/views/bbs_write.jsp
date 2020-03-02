@@ -8,10 +8,9 @@
 	<%@ include file="/WEB-INF/views/include/include-head.jspf" %>
 	<script>
 	$(function(){
-		$(".btn_delete").click(function(){
+		$("button.btn_delete").click(function(){
 			if(confirm("글을 삭제합니까?")) {
-				let id = $(this).attr("data-id")
-				let query = "${rootPath}/delete?b_id="+ id
+				let query = "${rootPath}/delete?b_id=${BBS.b_id}"
 				alert(query)
 				document.location.replace(query)
 				
@@ -60,6 +59,14 @@
 			var formData = new FormData()
 			// upFile 변수에 file 정보를 담아서 보내기 위한 준비
 			// upFile은 변수 이름, file은 실제로 우리가 올릴 파이름 정보
+			// editor.insertImage
+			// summernote의 내장 함수를 callback 형태로
+			// 호출해서 현재 summernote box에 표시하고자하는
+			// 이미지의 src 부분을 url값으로 대치
+			
+			// img src="data:base64~!~~~~"처럼 긴 이름을
+			// img src="UUID파일.jpg" 형태로 변경
+			
 			formData.append('upFile',file)
 			$.ajax({
 				url : "${rootPath}/image_up",
@@ -102,7 +109,6 @@
 				</div>
 				<div class="form-group d-flex justify-content-end">
 					<button class="btn btn-primary mr-2">저장</button>
-					<button type="button" class="btn btn-danger mr-2 btn_delete" data-id="${BBS.b_id}">삭제</button>
 					<a href="${rootPath}/"><button type="button" class="btn btn-success">목록으로</button></a>
 				</div>
 			</form>

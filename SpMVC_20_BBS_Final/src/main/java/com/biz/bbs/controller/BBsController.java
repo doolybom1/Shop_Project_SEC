@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import com.biz.bbs.domain.BBsVO;
 import com.biz.bbs.domain.CommentVO;
 import com.biz.bbs.service.BBsService;
 import com.biz.bbs.service.CommentService;
+import com.biz.bbs.service.CommentServiceImpl;
 import com.biz.bbs.service.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,9 +45,9 @@ public class BBsController {
 	 */
 	@Autowired
 	private BBsService bbsService;
-	
 	@Autowired
-	private CommentService cmService;
+	private CommentService cService;
+	
 	
 	@Autowired
 	private FileService fileService;
@@ -59,7 +61,6 @@ public class BBsController {
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String list(Model model) {
 		List<BBsVO> bbsList = bbsService.selectAll();
-		
 		model.addAttribute("BBS_LIST", bbsList);
 		return "bbs_list";
 	}
@@ -126,39 +127,65 @@ public class BBsController {
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public String update(BBsVO bbsVO,Model model) {
 		
-		bbsService.update(bbsVO);
+//		long b_id = bbsVO.getB_id();
 		
+//		// id가 없다면 0이고, 존재한다면 업데이트
+//		if(b_id > 0) {
+//			bbsService.update(bbsVO);
+//		} else {
+//			bbsService.insert(bbsVO);
+//		}
+		bbsService.update(bbsVO);
+		model.addAttribute("b_id",bbsVO.getB_id());
+		return "redirect:/detail";
+	}
+	
+	@RequestMapping(value="/delete/{b_id}",method=RequestMethod.GET)
+	public String delete(@PathVariable("b_id") String b_id) {
+		bbsService.delete(Long.valueOf(b_id));
 		return "redirect:/list";
 	}
-
 	
 	@RequestMapping(value="/detail",method=RequestMethod.GET)
 	public String detail(@RequestParam("b_id") String b_id, Model model) {
 		
 		long c_b_id = Long.valueOf(b_id);
-		List<CommentVO> cmtList = cmService.findByBId(c_b_id);
-		model.addAttribute("CMT_LIST", cmtList);
-		
-		
-		BBsVO bbsVO = bbsService.findById(Long.valueOf(b_id));
-		model.addAttribute("BBS",bbsVO);
-		
-		return "bbs_view";
-	}
-	
-	@RequestMapping(value="/delete",method=RequestMethod.GET)
-	public String delete(@RequestParam("b_id") String b_id) {
-		bbsService.delete(Long.valueOf(b_id));
-		return "redirect:/list";
-	}
-	
-	@RequestMapping(value="/view",method=RequestMethod.GET)
-	public String view(@RequestParam("b_id") String b_id, Model model) {
+		this.commentList(c_b_id+"",model);
 		
 		BBsVO bbsVO = bbsService.findById(Long.valueOf(b_id));
 		model.addAttribute("BBS", bbsVO);
 		
+		
 		return "bbs_view";
+	}
+	
+	@RequestMapping(value="/repl",method=RequestMethod.GET)
+	public String repl(@RequestParam("b_id")String b_id, Model model) {
+		
+		// 본글과 답글을 연결하기 위해서
+		// 답글의 b_p_id에 본글의 id값을 저장
+		BBsVO bbsVO = bbsService.findById(Long.valueOf(b_id));
+		
+		String  b_subject = "re : " + bbsVO.getB_subject();
+		bbsVO.setB_subject(b_subject);
+		bbsVO.setB_content("");
+		bbsVO.setB_writer("");
+		
+		model.addAttribute("BBS",bbsVO);
+		
+		
+		return "bbs_write";
+	}
+	
+	@RequestMapping(value="/repl",method=RequestMethod.POST)
+	public String repl(BBsVO bbsVO, Model model) {
+		
+		bbsVO.setB_p_id(bbsVO.getB_id());
+		bbsVO.setB_id(0L);
+		
+		int ret = bbsService.insert(bbsVO);
+		
+		return "redirect:/list";
 	}
 	
 	@ResponseBody
@@ -173,6 +200,17 @@ public class BBsController {
 			return "FAIL";
 		}
 		return retFileName;	
+	}
+	
+	/*
+	 * 게시판의 id값을 매개변수로 받아서
+	 * 코멘트 리스트를 보여주는 메서드
+	 */
+	private List<CommentVO> commentList(String b_id, Model model) {
+		List<CommentVO> commentList = cService.findByBId(Long.valueOf(b_id));
+		log.debug("댓글"+commentList.toString());
+		model.addAttribute("COMMENT",commentList);
+		return commentList;
 	}
 	
 }

@@ -53,6 +53,8 @@
 		
 		if(mJson.msg && mJson.msg == 'userList'){
 			let userList = JSON.parse(mJson.userList)
+			
+			// 동적 tag를 만드는 jquery 코드
 			let options = $("<option/>",{value:all,text:"전체"})
 			
 			for(let i = 0; i < userList.length; i++){

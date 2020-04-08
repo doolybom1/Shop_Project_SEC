@@ -10,6 +10,27 @@
 		<param-value>/WEB-INF/spring/*-context.xml</param-value>
 	</context-param>
 	
+	
+	<!-- 한글 인코딩 관련된 filter는 반드시 security보다 앞에 위치 -->
+	<!-- 11. security 와 관련되 filter는 반드시 여기에 작성 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<!-- 
+		filter mapping : 선언된 필터를 사용할 수 있도록 url 패턴과 연결
+		url-pattern의 *(controller)로 들어오는 요청을 springSecurityFilterChain으로 보내겠다
+		*.*(모든요청) 
+	
+	-->
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	
+	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

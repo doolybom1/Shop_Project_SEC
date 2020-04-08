@@ -24,8 +24,8 @@
 		<property name="dataSource" ref="authDB"></property>
 		<property name="usersByUsernameQuery">
 			<value>
-				SELECT username, password, enabled FROM users 
-				WHERE username=?
+				SELECT user_name AS username, user_pass AS password, enabled FROM tbl_users 
+				WHERE user_name=?
 			</value>
 		</property>
 		<property name="authoritiesByUsernameQuery">
@@ -51,15 +51,47 @@
 		logout 기능을 별도로 만들지 않고 spring security가 제공하는 logout 기능을 사용하겠다.
 		임의로 logout기능을 만들려면 logout-url에 설정을 바꾸면 된다.
 		<security:logout logout-url="/logout" />
+		
+		기본 로그인 활성화
+		form 기반 로그인, 기본인증 
+		auto-config="true" 
+		
+		함수기반표현식을 사용할 수 있다
+		use-expressions="true"
+		
+		
+		intercept-url access="hasRole()"
+		해당하는 권한이 있는 경우에는 url로 접근을 허락하고 그렇지 않은 경우에는 login 화면으로 redirection 한다
+		
+		access="hasRole()" : 한가지의 권한을 체크할때
+		access="hasAnyRole()" : 두가지 이상의 권한 중에 한가지라도 일치하는지 체크
+		access="permitAll()" : 별도의 인증절차 없이 통과
 	-->
-	<security:http>
+	<security:http auto-config="true" use-expressions="true">
 		<security:csrf disabled="false"/>
+		
+		<security:intercept-url 
+				pattern="/admin/**" 
+				access="hasRole('admin')"/>
+		
+		<security:intercept-url 
+				pattern="/user/mypage" 
+				access="hasAnyRole('admin','user')"/>
+
+		<security:intercept-url 
+				pattern="/user/**" 
+				access="permitAll()"/>
+		
+		<security:intercept-url 
+				pattern="/**" 
+				access="permitAll()"/>
+		
 		<security:form-login
-			login-page=""
+			login-page="/login"
 			login-processing-url=""
 			default-target-url=""
-			username-parameter=""
-			password-parameter=""
+			username-parameter="username"
+			password-parameter="password"
 		/>
 		
 		<security:logout

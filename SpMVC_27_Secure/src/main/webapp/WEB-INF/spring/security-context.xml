@@ -87,7 +87,7 @@
 				access="permitAll()"/>
 		
 		<security:form-login
-			login-page="/login"
+			login-page="/user/login"
 			login-processing-url=""
 			default-target-url=""
 			username-parameter="username"
@@ -95,7 +95,7 @@
 		/>
 		
 		<security:logout
-			logout-url=""
+			logout-url="/logout"
 			invalidate-session="true"
 			logout-success-url=""
 		/>

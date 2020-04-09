@@ -3,11 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- 1. security 사용을 위해 root -> * 로 -->
+	<!-- 1. security 사용을 위해 root -> * 로 작성하고 나중에 context.xml파일이 늘어나면 아래와 같이 실행 순서를 지정해준다-->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/*-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/db-auth-context.xml
+			/WEB-INF/spring/security-context.xml
+			/WEB-INF/spring/mybatis-context.xml
+			/WEB-INF/spring/root-context.xml
+		</param-value>
 	</context-param>
 	
 	
@@ -22,7 +27,6 @@
 		filter mapping : 선언된 필터를 사용할 수 있도록 url 패턴과 연결
 		url-pattern의 *(controller)로 들어오는 요청을 springSecurityFilterChain으로 보내겠다
 		*.*(모든요청) 
-	
 	-->
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>

@@ -81,6 +81,11 @@ public class UserService {
 							.password(encPassword).build();
 		
 		int ret = userDao.insert(userVO);
+		List<AuthorityVO> authList = new ArrayList();
+		authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("ROLE_USER").build());
+		authList.add(AuthorityVO.builder().username(userVO.getUsername()).authority("USER").build());
+		
+		authDao.insert(authList);
 		return ret;
 	
 	}

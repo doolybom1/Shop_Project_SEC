@@ -18,14 +18,16 @@
 	margin:0;
 	padding:0;
 	box-sizing: border-box;
+	
 }
+
 
 .join_form {
 	
 	width:400px;
 	padding:40px;
 	
-	background: blue;
+	background: black;
 	text-align: center;
 	z-index: 10;
 	
@@ -72,11 +74,12 @@
 }
 
 .join_form .option {
-	text-align: right;
+	text-align: center;
 	margin-right: 3px;
 
 }
 .join_form label[for="view_pass"]{
+
 
  padding: 0 0 5px 2px;
  cursor: pointer;
@@ -87,6 +90,10 @@
   font-weight: 400;
   text-transform: capitalize;
   color:white;
+}
+
+#view_pass{
+	width: 10px;
 }
 
 .join_form input[type="checkbox"]{
@@ -258,12 +265,17 @@ $(function(){
 			font-weight: bold;
 			font-size: 0.5rem;
 		}
+		
+		.nav{
+			display: none;
+		}
 	</style>
+	
 </head>	
 <body>
-	<%@ include file="/WEB-INF/views/include/include-nav.jspf" %>
+	<div class="nav"><%@ include file="/WEB-INF/views/include/include-nav.jspf" %></div>
 	<form:form method="POST" modelAttribute="userVO" 
-			action="${rootPath}/join/user" 
+			action="${rootPath}/join/join_next" 
 			class="join_form">
 			
 		<h2>회원가입</h2>
@@ -285,10 +297,10 @@ $(function(){
 			<label for="view_pass">
 			<input type="checkbox" id="view_pass">
 			비밀번호 보이기</label>
-		</div>			
+		</div>
+		
 		<button type="button" id="btn-join">회원가입</button>
 		<button type="button" id="btn-loss">ID/비번찾기</button>
-	
 	</form:form>
 
 </body>

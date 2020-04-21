@@ -9,17 +9,17 @@
 <head>
 <%@ include file="/WEB-INF/views/include/include-head.jspf"%>
 <style>
+
 #body {
 	position: fixed;
 	top: 60px;
 	left: 0;
 	width: 100%;
+	height: 100%;
 	display: flex;
 }
 
 #body menu {
-	flex: 1;
-	border: 1px solid blue;
 	margin: 5px;
 }
 
@@ -34,21 +34,65 @@
 	width: 80%;
 	margin-left: 10px;
 	border-bottom: 2px solid transparent;
-	border-top: 2px solid transparent;
 }
 
 #body menu li a:hover {
 	border-bottom: 2px solid blue;
-	border-top: 2px solid blue;
 	transition: ease 0.3s;
 }
 
 #body article {
 	flex: 3;
-	border: 1px solid blue;
 	margin: 5px;
 }
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
 </style>
+
+</head>
 <script>
 $(function(){
 	$(document).on("click","#user_list",function(){
@@ -82,22 +126,41 @@ $(function(){
 			//		{text:'제거',class:'auth_delete'}))		
 			$("div#auth_box").append(auth_input)
 	})
-	
-	
 })
-
 </script>
 </head>
 <body>
+	<script>
+			function openNav() {
+			  document.getElementById("mySidenav").style.width = "250px";
+			}
+			
+			function closeNav() {
+			  document.getElementById("mySidenav").style.width = "0";
+			}
+	</script>
 	<%@ include file="/WEB-INF/views/include/include-nav.jspf"%>
 	<section id="body">
-		<menu>
+		<menu id="menu">
+			<div id="mySidenav" class="sidenav">
+			  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			  <a href="javascript:void(0)" id="user_list">User List</a>
+			  <a href="#">메뉴1</a>
+			  <a href="#">메뉴2</a>
+			</div>
+		
+			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 관리자페이지</span>
+		
+		
+		   
+		   <!-- 
 			<h3>관리자페이지</h3>
 			<ul>
 				<li><a href="javascript:void(0)" id="user_list">User List</a></li>
 				<li><a href="#">메뉴1</a></li>
 				<li><a href="#">메뉴2</a></li>
 			</ul>
+			 -->
 		</menu>
 		<article id="admin_content"></article>
 	</section>

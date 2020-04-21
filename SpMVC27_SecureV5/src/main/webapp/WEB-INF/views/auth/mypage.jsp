@@ -58,7 +58,7 @@
 	</script>
 	<style>
 		section{
-			position: fixed;
+			position: relative;
 			top:70px;
 			left:0;
 			width: 100%;
@@ -75,34 +75,38 @@
 		form input.auth {
 			display: block;
 		}
+		.container-fluid{
+			width: 600px;
+		}
+		
 
 	</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/include/include-nav.jspf" %>
-<section>
+<section class="container-fluid">
 	<form:form modelAttribute="userVO">
-	<div>
-		<form:input path="username"/>
-	</div>
-	<div class="password">
-		<input id="password" 
-				type="password" placeholder="비밀번호를 입력!!">
-	</div>
-	<div>
-		<form:input path="email" placeholder="E-mail"/>
-	</div>
-	<div>
-		<form:input path="phone" placeholder="전화번호"/>
-	</div>
-	<div>
-		<form:input path="address" placeholder="주소"/>
-	</div>
-	<div>
-		<button type="button" id="btn_update">수정</button>
-		<button type="submit" id="btn_save" disabled="disabled">저장</button>
-		<button type="button" id="btn_loss_pass">비밀번호찾기</button>
-	</div>
+		<div class="form-group">
+			<form:input path="username" class="form-control"/>
+		</div>
+		<div class="password form-group">
+			<input id="password" 
+					type="password" placeholder="비밀번호를 입력!! " class="form-control">
+		</div>
+		<div class="form-group">
+			<form:input path="email" placeholder="E-mail" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<form:input path="phone" placeholder="전화번호" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<form:input path="address" placeholder="주소" class="form-control"/>
+		</div>
+		<div>
+			<button type="button" id="btn_update" class="btn btn-primary">수정</button>
+			<button type="submit" id="btn_save" disabled="disabled" class="btn btn-primary">저장</button>
+			<button type="button" id="btn_loss_pass" class="btn btn-primary">비밀번호찾기</button>
+		</div>
 	</form:form>
 
 </section>

@@ -18,53 +18,53 @@
 			margin:10px auto;
 		}
 		
-		form label {
-			display: inline-block;
-			width:150px;
-			text-align: right;
-		}
+	
 		
 		form input.auth {
 			display: block;
 		}
+		
+		#info-form{
+			width: 600px;
+		}
 
 	</style>
 <section>
-	<form:form modelAttribute="userVO">
-	<div>
-		<label for="username">UserName : </label>
-		<form:input path="username" readonly="true"/>
+	<form:form modelAttribute="userVO" id="info-form">
+	<div class="form-group input-group-prepend">
+		<span class="input-group-text btn-outline-primary">UserName</span>
+		<form:input path="username" readonly="true" class="form-control "/>
 	</div>
 
-	<div>
-		<label for="email">Email : </label>
-		<form:input path="email"/>
+	<div class="form-group input-group-prepend">
+		<span class="input-group-text btn-outline-primary">Email</span>
+		<form:input path="email" class="form-control"/>
 	</div>
-	<div>
-		<label for="phone">phone : </label>
-		<form:input path="phone" />
+	<div class="form-group input-group-prepend">
+		<span class="input-group-text btn-outline-primary">Phone</span>
+		<form:input path="phone" class="form-control"/>
 	</div>
-	<div>
-		<label for="address">Address : </label>
-		<form:input path="address" />
+	<div class="form-group input-group-prepend">
+		<span class="input-group-text btn-outline-primary">address</span>
+		<form:input path="address" class="form-control"/>
 	</div>
-	<div>
-		<label for="enabled">계정활성화 : </label>
-		<form:checkbox path="enabled" />
+	<div class="form-group input-group-prepend">
+		<span class="input-group-text btn-outline-primary">계정활성화</span>
+		<form:checkbox path="enabled" class="form-control"/>
 	</div>
 
-	<div id="auth_box">
-	<button id="auth_append" type="button">권한 정보 입력 추가</button>
+	<div id="auth_box" class="form-group">
+	<button id="auth_append" type="button" class="btn btn-primary mb-1">권한 정보 입력 추가</button>
 	<c:if test="${not empty userVO.authorities}">
 		<c:forEach items="${userVO.authorities}" var="auth">
 			<input name="auth" 
 					value="${auth.authority}" 
-					class="auth">
+					class="auth form-control">
 		</c:forEach>
 	</c:if>
 	</div>
 	<div>
-		<button type="button" id="btn_save">저장</button>
+		<button type="button" id="btn_save" class="btn btn-primary">저장</button>
 	</div>
 	</form:form>
 </section>

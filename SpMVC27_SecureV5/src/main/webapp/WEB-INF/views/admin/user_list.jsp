@@ -4,6 +4,7 @@
 <style>
 	table {
 		width:100%;
+		text-align: center;
 	}
 	
 	tr.tr_user {
@@ -16,7 +17,10 @@
 	}
 
 </style>
-<table>
+
+
+<table class="table table-striped table-hover">
+	<thead class="thead-dark">
 	<tr>
 		<th>NO</th>
 		<th>UserName</th>
@@ -24,6 +28,7 @@
 		<th>Phone</th>
 		<th>Address</th>
 	</tr>
+	</thead>
 	<c:choose>
 		<c:when test="${empty userList}">
 			<tr><td colspan="5">User 정보 없음</td></tr>

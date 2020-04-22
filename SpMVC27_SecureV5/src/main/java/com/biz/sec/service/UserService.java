@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.biz.sec.domain.AuthorityVO;
@@ -72,7 +73,8 @@ public class UserService {
 	 * 2020-04-10 Map String,String 구조의 VO 데이터를 UserVO로 변경
 	 * 
 	 */
-	@Transactional
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public int insert(String username, String password) {
 
 		// 회원가입 form에서 전달받은 password 값을 암호화 시키는 과정
@@ -163,6 +165,7 @@ public class UserService {
 		return passwordEncoder.matches(password, userVO.getPassword());
 	}
 
+	@Transactional
 	public int update(UserDetailsVO userVO,String[] authList) {
 		
 		int ret = userDao.update(userVO);
@@ -234,6 +237,7 @@ public class UserService {
 		return userDao.selectAll();
 	}
 
+	@Transactional
 	public UserDetailsVO findByUserName(String username) {
 		return userDao.findByUserName(username);
 	}
@@ -277,6 +281,7 @@ public class UserService {
 	 * @param userVO
 	 * @return
 	 */
+	@Transactional
 	public String insert_getToken(UserDetailsVO userVO) {
 		// DB에 저장
 		userVO.setEnabled(false);

@@ -80,7 +80,6 @@
 	</bean>
 	
 	<context:annotation-config/>
-	
 	<!-- 트랜잭션 관리자 활성화 -->
 	<tx:annotation-driven/>
 	

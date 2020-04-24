@@ -53,18 +53,18 @@
 		<form:checkbox path="enabled" class="form-control"/>
 	</div>
 
-	<div id="auth_box" class="form-group">
+	<div id="auth_box">
 	<button id="auth_append" type="button" class="btn btn-primary mb-1">권한 정보 입력 추가</button>
 	<c:if test="${not empty userVO.authorities}">
+	<div class="form-group">
 		<c:forEach items="${userVO.authorities}" var="auth">
-			<input name="auth" 
-					value="${auth.authority}" 
-					class="auth form-control">
+			<input name="auth" value="${auth.authority}" class="auth form-control">
 		</c:forEach>
+	</div>
 	</c:if>
 	</div>
 	<div>
-		<button type="button" id="btn_save" class="btn btn-primary">저장</button>
+		<button type="button" id="btn_save" class="btn btn-primary mt-1">저장</button>
 	</div>
 	</form:form>
 </section>

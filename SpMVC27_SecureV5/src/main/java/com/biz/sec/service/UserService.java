@@ -158,6 +158,8 @@ public class UserService {
 		return userVO;
 	}
 
+	
+	// 로그인시 패스워트 체크
 	public boolean check_password(String password) {
 		UserDetailsVO userVO = (UserDetailsVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -200,7 +202,7 @@ public class UserService {
 		oldUserVO.setPhone(userVO.getPhone());
 		oldUserVO.setAddress(userVO.getAddress());
 
-		int ret = userDao.update(userVO);
+		int ret = userDao.update(oldUserVO);
 		// DB update가 성공하면
 		// 로그인된 session정보를 update 수행
 		if (ret > 0) {

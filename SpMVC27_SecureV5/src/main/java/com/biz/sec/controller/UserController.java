@@ -108,6 +108,7 @@ public class UserController {
 			= (UserDetailsVO) upa.getPrincipal();
 		userVO.setAuthorities(upa.getAuthorities());
 
+		
 		model.addAttribute("userVO", userVO);
 		return "auth/mypage";
 //		return userVO;

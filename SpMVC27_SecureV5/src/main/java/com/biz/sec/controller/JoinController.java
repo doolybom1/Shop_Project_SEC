@@ -62,6 +62,7 @@ public class JoinController {
 	 */
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public String join(@ModelAttribute("userVO") UserDetailsVO userVO, Model model) {		
+		
 		return "join/join";
 	}
 	
@@ -76,13 +77,14 @@ public class JoinController {
 	 */
 	@RequestMapping(value = "/join_next",method=RequestMethod.POST)
 	public String join_next(@ModelAttribute("userVO") UserDetailsVO userVO) {
+		log.debug("회원가입정보:"+ userVO.toString());
 		return "join/join_email";
 	}
 	
 	
 	/**
 	 * @since 2020-04-21
-	 * 이메일 인증 폼에서 회원가입 버튼을 클릭했을 때 userVO에 데이터를 받아서(email만) sessionAttributes에 저장된 데이터와 통합하고
+	 * 이메일 인증 폼에서 email 인증 보내기 버튼을 클릭했을 때 userVO에 데이터를 받아서(email만) sessionAttributes에 저장된 데이터와 통합하고
 	 * DB에 저장한 후 인증정보를 email로 보내고 인증코드를 입력받는 화면을 보여주기. 이때, JOIN 변수에 EMAIL_OK 문자열을 실어서 보내고
 	 * 화면에는 인증코드 입력하는 란이 보이도록 설정
 	 * 

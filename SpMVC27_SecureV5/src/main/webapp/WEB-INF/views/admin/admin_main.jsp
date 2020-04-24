@@ -121,7 +121,7 @@ $(function(){
 	// $("#auth_append").click();
 	$(document).on("click","#auth_append",function(){
 			let auth_input = $("<input/>",
-					{class:"auth",name:"auth"})
+					{class:"auth form-control",name:"auth"})
 			// auth_input.append($("<p/>",
 			//		{text:'제거',class:'auth_delete'}))		
 			$("div#auth_box").append(auth_input)
@@ -132,7 +132,7 @@ $(function(){
 <body>
 	<script>
 			function openNav() {
-			  document.getElementById("mySidenav").style.width = "250px";
+			  document.getElementById("mySidenav").style.width = "200px";
 			}
 			
 			function closeNav() {
@@ -148,19 +148,7 @@ $(function(){
 			  <a href="#">메뉴1</a>
 			  <a href="#">메뉴2</a>
 			</div>
-		
 			<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; 관리자페이지</span>
-		
-		
-		   
-		   <!-- 
-			<h3>관리자페이지</h3>
-			<ul>
-				<li><a href="javascript:void(0)" id="user_list">User List</a></li>
-				<li><a href="#">메뉴1</a></li>
-				<li><a href="#">메뉴2</a></li>
-			</ul>
-			 -->
 		</menu>
 		<article id="admin_content"></article>
 	</section>
